@@ -82,9 +82,9 @@ cloudblog/
 
 ## 📱 Screenshots
 
-![Home Page](https://via.placeholder.com/800x400.png?text=Home+Page)
-![Blog Post](https://via.placeholder.com/800x400.png?text=Blog+Post)
-![Dashboard](https://via.placeholder.com/800x400.png?text=Dashboard)
+![Home Page](screenshots/HomePage.png)
+![Blog Post](screenshots/Blogs.png)
+![Dashboard](screenshots/Dashboard.png)
 
 ## 🤝 Contributing
 
