@@ -1,0 +1,34 @@
+<!-- pages/contact.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - CloudBlog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="page-container">
+    <h1>Contact Us</h1>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" rows="6" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  <script type="module">
+    import { loadHeader } from "/components/header.js";
+    import { loadFooter } from "/components/footer.js";
+    loadHeader();
+    loadFooter();
+
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Message sent! We'll get back to you soon.");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!-- auth/profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile - CloudBlog</title>
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Your Profile</h2>
+    <form id="profileForm">
+      <input type="text" id="profileUsername" placeholder="Username" required />
+      <input type="email" id="profileEmail" placeholder="Email" required />
+      <input type="password" id="newPassword" placeholder="New Password" />
+      <button type="submit">Update Profile</button>
+    </form>
+    <button id="logoutBtn">Logout</button>
+  </div>
+<script>
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.href = 'login.html'; // not logged in
+    }
+  });
+  
+</script>
+  <script src="auth.js"></script>
+</body>
+</html>

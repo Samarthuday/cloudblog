@@ -1,0 +1,196 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Validate post data
+    function isValidPost() {
+      let data = request.resource.data;
+      return data.keys().hasAll(['title', 'content', 'authorEmail', 'authorName', 'createdAt', 'updatedAt', 'status', 'userId']) &&
+        data.title is string && data.title.size() > 0 &&
+        data.content is string && data.content.size() > 0 &&
+        data.authorEmail is string &&
+        data.authorName is string &&
+        data.status in ['draft', 'published'] &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp &&
+        data.userId is string &&
+        // Optional fields validation
+        (!('commentCount' in data) || data.commentCount is number) &&
+        (!('publishedAt' in data) || data.publishedAt is string) &&
+        (!('views' in data) || data.views is number);
+    }
+
+    // Validate comment data
+    function isValidComment() {
+      let comment = request.resource.data;
+      return comment.keys().hasAll(['text', 'authorName']) &&
+             comment.text is string &&
+             comment.text.size() > 0 &&
+             comment.text.size() <= 1000 &&
+             comment.authorName is string &&
+             comment.authorName.size() > 0 &&
+             comment.authorName.size() <= 50;
+    }
+
+    // Validate subscriber data
+    function isValidSubscriber() {
+      let subscriber = request.resource.data;
+      return subscriber.keys().hasAll(['authorId', 'createdAt']) &&
+             subscriber.authorId is string &&
+             subscriber.createdAt is timestamp;
+    }
+
+    // Templates collection with query support
+    match /templates/{templateId} {
+      allow read: if isAuthenticated() && 
+                 (resource == null || resource.data.userId == request.auth.uid);
+      allow write: if isAuthenticated() && 
+                  request.resource.data.userId == request.auth.uid;
+    }
+
+    // Posts collection with nested comments subcollection
+    match /posts/{postId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && isValidPost();
+      allow update: if (
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views']) && request.resource.data.views is number) ||
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['commentCount']) && request.resource.data.commentCount is number) ||
+        (isAuthenticated() && isOwner(resource.data.userId) && (
+          isValidPost() ||
+          (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views', 'commentCount']) && request.resource.data.views is number && request.resource.data.commentCount is number)
+        ))
+      );
+      allow delete: if isAuthenticated() && isOwner(resource.data.userId);
+
+      // Comments subcollection
+      match /comments/{commentId} {
+        allow read: if true;
+        allow write: if isValidComment();
+      }
+
+      // Subscriptions subcollection
+      match /subscriptions/{subscriptionId} {
+        allow read: if true;
+        allow write: if true;
+      }
+
+      // Subscribers collection
+      match /subscribers/{subscriberId} {
+        allow read: if isAuthenticated() && (
+          resource.data.authorId == request.auth.uid
+        );
+        allow create: if isAuthenticated() && (
+          request.resource.data.authorId == request.auth.uid &&
+          request.resource.data.createdAt is timestamp
+        );
+        allow update, delete: if false;
+      }
+    }
+    
+    // TOP-LEVEL subscribers collection
+    match /subscribers/{subscriberId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+    
+    // Likes collection
+    match /likes/{likeId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow delete: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+    
+    // Subscriptions collection
+    match /subscriptions/{subscriptionId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow delete: if isAuthenticated() && request.auth.uid == resource.data.userId;
+    }
+    
+    // User profiles and stats
+    match /users/{userId} {
+      // Allow read for authenticated users
+      allow read: if isAuthenticated();
+      
+      // Allow updates for stats and profile data
+      allow update: if isAuthenticated() && (
+        // Allow updating stats fields
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['totalViews', 'totalComments', 'stats', 'lastName', 'firstName', 'email', 'createdAt', 'displayName', 'photoURL']) ||
+        // Or if user owns the profile
+        isOwner(userId)
+      );
+      
+      // Allow creation with required fields
+      allow create: if isAuthenticated() && (
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.email is string &&
+        request.resource.data.displayName is string
+      );
+      
+      // Only the user can delete their profile
+      allow delete: if isOwner(userId);
+    }
+    
+    // User statistics
+    match /userStats/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+    
+    // Support tickets
+    match /support_tickets/{ticketId} {
+      // Anyone can create tickets with required fields
+      allow create: if request.resource.data.subject is string &&
+                   request.resource.data.message is string &&
+                   request.resource.data.createdAt is timestamp;
+      // Only admins can read/update/delete (via Firebase Console)
+      allow read, update, delete: if false;
+    }
+    
+    // Payments
+    match /payments/{paymentId} {
+      // Only authenticated users can interact with payments
+      allow read: if isAuthenticated() &&
+        (resource.data.userId == request.auth.uid);
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.amount is number &&
+        request.resource.data.amount > 0 &&
+        request.resource.data.createdAt is timestamp;
+      allow update, delete: if false;  // Handle updates server-side
+    }
+    
+    // Notifications collection
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && (
+        resource.data.recipientId == request.auth.uid
+      );
+      allow create: if isAuthenticated() && (
+        request.resource.data.recipientId == request.auth.uid &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.type is string &&
+        request.resource.data.message is string
+      );
+      allow update: if isAuthenticated() && (
+        resource.data.recipientId == request.auth.uid &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read'])
+      );
+      allow delete: if false;
+    }
+    
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 

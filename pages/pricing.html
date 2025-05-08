@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing - CloudBlog</title>
+  <link rel="stylesheet" href="../styles.css"/>
+  <!-- Link to script.js for header functionality -->
+  <script src="../script.js" defer></script>
+  <style>
+    .pricing-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      scroll-margin-top: 80px; /* Add space for fixed headers */
+    }
+
+    .pricing-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .pricing-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .pricing-plans {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .plan {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 2rem;
+      flex: 1;
+      min-width: 250px;
+      max-width: 350px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+      scroll-margin-top: 100px; /* Ensures anchor links have proper spacing */
+    }
+
+    .plan:hover {
+      transform: translateY(-10px);
+    }
+
+    .plan-popular {
+      position: relative;
+      border: 2px solid #2196F3;
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -15px;
+      right: 20px;
+      background-color: #2196F3;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .plan-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-price {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-billing {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .plan-features {
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .check-icon {
+      color: #10b981;
+      margin-right: 0.5rem;
+    }
+
+    .x-icon {
+      color: #ef4444;
+      margin-right: 0.5rem;
+    }
+
+    .plan-cta {
+      text-align: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn-primary {
+      background-color: #2196F3;
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0d8bf2;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: #2196F3;
+      border: 2px solid #2196F3;
+    }
+
+    .btn-outline:hover {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .feature-compare {
+      margin-top: 4rem;
+    }
+
+    .compare-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .compare-table th:first-child,
+    .compare-table td:first-child {
+      text-align: left;
+    }
+
+    .compare-table th {
+      background-color: #f8f9fa;
+    }
+
+    .category-row {
+      background-color: #f1f5f9;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .feature-row {
+      display: none;
+    }
+
+    .feature-row.show {
+      display: table-row;
+    }
+
+    .faq-section {
+      margin-top: 4rem;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      border: 1px solid #eee;
+      border-radius: 5px;
+    }
+
+    .faq-question {
+      padding: 1rem;
+      background-color: #f8f9fa;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      padding: 0 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-answer.show {
+      max-height: 500px;
+      padding: 1rem;
+    }
+
+    /* Highlight effect for when landing on an anchor */
+    .highlight-plan {
+      animation: highlight 2s ease-out;
+    }
+
+    @keyframes highlight {
+      0% { box-shadow: 0 0 0 4px #2196F3; }
+      100% { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    }
+
+    @media (max-width: 768px) {
+      .pricing-plans {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .plan {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .compare-table {
+        font-size: 0.85rem;
+      }
+    }
+    /* Footer Styles */
+  #site-footer {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    border-top: 1px solid #eaeaea;
+  }
+
+  .footer-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-section {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-section ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-section ul li a {
+    color: #2196F3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-section ul li a:hover {
+    color: #0d8bf2;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    color: #333;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #2196F3;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .footer-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-section {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  }
+  </style>
+</head>
+<body>
+  <header id="site-header">
+    <div class="header-wrapper">
+      <a href="../admin/index.html" class="logo"> <!-- Updated href to point to main index -->
+        <img src="../assets/images/feather-wing-svgrepo-com.svg" alt="CloudBlog Logo">
+        <span>CloudBlog</span>
+      </a>
+      
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="../admin/index.html#features-section">Features</a></li> <!-- Updated href -->
+          <li><a href="../blog.html">Blogs</a></li>
+          <li><a href="../pages/blog-templates.html">Templates</a></li>
+          <li><a href="../admin/index.html#pricing-section">Pricing</a></li> <!-- Keep href as is -->
+          <li><a href="../pages/support.html">Support</a></li>
+        </ul>
+      </nav>
+
+      <div class="auth-buttons">
+        <a href="../auth/login.html" class="login-btn">Login</a>
+        <a href="../auth/register.html" class="signup-btn">Sign Up</a>
+      </div>
+
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="theme-icon">
+          <!-- SVG path for theme icon (using consistent ones) -->
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM6.3 17.7a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 1 1-1.1 1.1L3.5 4.6a.8.8 0 0 1 0-1.1zm14.2 14.2a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 0 1-1.1 1.1l-1.8-1.8a.8.8 0 0 1 0-1.1z"/>
+        </svg>
+      </button>
+
+      <button class="mobile-menu-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+  <main class="page-container">
+    <div class="pricing-container">
+      <div class="pricing-header">
+        <h1>Choose Your Perfect Plan</h1>
+        <p>Start your blogging journey with our flexible pricing options</p>
+      </div>
+
+      <div class="pricing-toggle">
+        <span class="toggle-text">Monthly</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="billing-toggle">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-text">Annual <span class="discount-badge">Save 20%</span></span>
+      </div>
+
+      <div class="pricing-plans">
+        <div class="plan" id="free">
+          <div class="plan-header">
+            <h2 class="plan-name">Free</h2>
+            <div class="plan-price">$0</div>
+            <div class="plan-billing">Forever free</div>
+          </div>
+
+          <div class="plan-features">
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>1 blog</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Basic templates</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Up to 10 posts</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Community support</span>
+            </div>
+            <div class="feature-item">
+              <span class="x-icon">✗</span>
+              <span>Custom domain</span>
+            </div>
+          </div>
+
+          <div class="plan-cta">
+            <a href="#" class="btn btn-outline">Get Started</a>
+          </div>
+        </div>
+
+        <div class="plan plan-popular" id="pro">
+          <span class="popular-badge">MOST POPULAR</span>
+          <div class="plan-header">
+            <h2 class="plan-name">Pro</h2>
+            <div class="plan-price" id="pro-price">$12</div>
+            <div class="plan-billing" id="pro-billing">per month</div>
+          </div>
+
+          <div class="plan-features">
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Up to 5 blogs</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Premium templates</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Unlimited posts</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Advanced analytics</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Custom domain</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Email support</span>
+            </div>
+          </div>
+
+          <div class="plan-cta">
+            <a href="../pages/pricingpay.html" class="btn btn-primary">Choose Pro</a>
+          </div>
+        </div>
+
+        <div class="plan" id="business">
+          <div class="plan-header">
+            <h2 class="plan-name">Business</h2>
+            <div class="plan-price" id="business-price">$29</div>
+            <div class="plan-billing" id="business-billing">per month</div>
+          </div>
+
+          <div class="plan-features">
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Unlimited blogs</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Premium templates</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Unlimited posts</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Advanced analytics</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Custom domain</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Priority support</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>Team collaboration</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>API access</span>
+            </div>
+          </div>
+
+          <div class="plan-cta">
+            <a href="../pages/pricingpay.html" class="btn btn-outline">Choose Business</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-compare">
+        <div class="compare-header">
+          <h2>Compare Features</h2>
+          <p>Detailed breakdown of all features across plans</p>
+        </div>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Features</th>
+              <th>Free</th>
+              <th>Pro</th>
+              <th>Business</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="category-row" data-category="blogs">
+              <td>Blog Management</td>
+              <td colspan="3">Click to expand</td>
+            </tr>
+            <tr class="feature-row blogs-feature">
+              <td>Number of blogs</td>
+              <td>1</td>
+              <td>Up to 5</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr class="feature-row blogs-feature">
+              <td>Blog posts</td>
+              <td>Up to 10</td>
+              <td>Unlimited</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr class="feature-row blogs-feature">
+              <td>Scheduled publishing</td>
+              <td>✗</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+
+            <tr class="category-row" data-category="design">
+              <td>Design & Customization</td>
+              <td colspan="3">Click to expand</td>
+            </tr>
+            <tr class="feature-row design-feature">
+              <td>Templates</td>
+              <td>Basic (3)</td>
+              <td>Premium (15+)</td>
+              <td>Premium (15+)</td>
+            </tr>
+            <tr class="feature-row design-feature">
+              <td>Custom CSS</td>
+              <td>✗</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr class="feature-row design-feature">
+              <td>Custom domain</td>
+              <td>✗</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+
+            <tr class="category-row" data-category="analytics">
+              <td>Analytics & Insights</td>
+              <td colspan="3">Click to expand</td>
+            </tr>
+            <tr class="feature-row analytics-feature">
+              <td>Basic analytics</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr class="feature-row analytics-feature">
+              <td>Advanced analytics</td>
+              <td>✗</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr class="feature-row analytics-feature">
+              <td>Custom reports</td>
+              <td>✗</td>
+              <td>✗</td>
+              <td>✓</td>
+            </tr>
+
+            <tr class="category-row" data-category="support">
+              <td>Support</td>
+              <td colspan="3">Click to expand</td>
+            </tr>
+            <tr class="feature-row support-feature">
+              <td>Community support</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr class="feature-row support-feature">
+              <td>Email support</td>
+              <td>✗</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr class="feature-row support-feature">
+              <td>Priority support</td>
+              <td>✗</td>
+              <td>✗</td>
+              <td>✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="faq-section">
+        <div class="faq-header">
+          <h2>Frequently Asked Questions</h2>
+          <p>Find answers to common questions about our pricing plans</p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Can I upgrade or downgrade my plan anytime?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>Yes, you can upgrade or downgrade your plan at any time. If you upgrade, you'll be charged the prorated difference for the remainder of your billing cycle. If you downgrade, the changes will apply at the start of your next billing cycle.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>What happens if I exceed my plan limits?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>We'll notify you when you're approaching your plan limits. If you exceed them, we won't cut off your service immediately, but we'll encourage you to upgrade to a higher plan to maintain optimal performance.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Do you offer refunds?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>We offer a 14-day money-back guarantee for all paid plans. If you're not satisfied with our service, you can request a full refund within 14 days of your purchase.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Is there a long-term contract?</span>
+              <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>No, there are no long-term contracts. You can pay monthly or annually, and you can cancel your subscription at any time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer id="site-footer">
+      <div class="container">
+        <div class="footer-wrapper">
+          <div class="footer-section">
+            <h3>About Us</h3>
+            <p>CloudBlog is a platform for creating and managing blogs with ease. Our mission is to empower writers and content creators.</p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="../admin/index.html">Home</a></li>
+              <li><a href="../admin/index.html#features-section">Features</a></li>
+              <li><a href="../admin/index.html#pricing-section">Pricing</a></li>
+              <li><a href="../blog.html">Blog</a></li>
+              <li><a href="../pages/support.html">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="../pages/support.html">Help Center</a></li>
+              <li><a href="../pages/support.html">FAQs</a></li>
+              <li><a href="../pages/support.html">Community</a></li>
+              <li><a href="../pages/support.html">Contact Support</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2023 CloudBlog. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script type="module">
+    // Import statements (commented out as per your original script)
+    // import { loadHeader } from "../components/header.js";
+    // import { loadFooter } from "../components/footer.js";
+  
+    // Load header and footer
+    // loadHeader();
+    // loadFooter();
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      const billingToggle = document.getElementById('billing-toggle');
+      const plans = document.querySelectorAll('.plan');
+  
+      // Define the pricing data for each plan
+      const pricingData = {
+        pro: {
+          monthly: '$12',
+          annual: '$115'
+        },
+        business: {
+          monthly: '$29',
+          annual: '$279'
+        }
+      };
+  
+      // Function to update pricing based on billing toggle
+      function updatePricing(isAnnual) {
+        plans.forEach(plan => {
+          const planId = plan.id;
+          if (pricingData[planId]) {
+            const priceElement = plan.querySelector('.plan-price');
+            const billingElement = plan.querySelector('.plan-billing');
+            const price = isAnnual ? pricingData[planId].annual : pricingData[planId].monthly;
+            const billingText = isAnnual ? 'billed annually' : 'per month';
+  
+            priceElement.textContent = price;
+            billingElement.textContent = billingText;
+          }
+        });
+      }
+  
+      // Function to highlight a plan
+      function highlightPlan(plan) {
+        plans.forEach(p => p.classList.remove('highlight-plan'));
+        plan.classList.add('highlight-plan');
+      }
+  
+      // Event listener for the billing toggle switch
+      if (billingToggle) {
+        billingToggle.setAttribute('role', 'switch');
+        billingToggle.setAttribute('aria-checked', billingToggle.checked);
+  
+        billingToggle.addEventListener('change', function() {
+          const isAnnual = this.checked;
+          billingToggle.setAttribute('aria-checked', isAnnual);
+          updatePricing(isAnnual);
+        });
+      }
+  
+      // Event listener for plan clicks
+      plans.forEach(plan => {
+        plan.addEventListener('click', function() {
+          highlightPlan(this);
+        });
+      });
+  
+      // Initialize pricing based on the initial state of the toggle
+      updatePricing(billingToggle.checked);
+  
+      // Smooth scroll and highlight plan on anchor click
+      document.querySelectorAll("a[href^='#']").forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            highlightPlan(target);
+            setTimeout(() => {
+              target.classList.remove("highlight-plan");
+            }, 2000);
+          }
+        });
+      });
+  
+      // Highlight plan based on URL hash
+      function highlightAnchorTarget() {
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+          const targetElement = document.getElementById(hash);
+          if (targetElement) {
+            highlightPlan(targetElement);
+            setTimeout(() => targetElement.classList.remove('highlight-plan'), 2000);
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+  
+      highlightAnchorTarget();
+      window.addEventListener('hashchange', highlightAnchorTarget);
+  
+      // Feature comparison expand/collapse
+      const categoryRows = document.querySelectorAll('.category-row');
+      categoryRows.forEach(row => {
+        row.addEventListener('click', () => {
+          const category = row.dataset.category;
+          const featureRows = document.querySelectorAll(`.feature-row[data-category="${category}"]`);
+  
+          featureRows.forEach(feature => feature.classList.toggle('hidden'));
+  
+          // Update text
+          const columnText = row.querySelector('td:nth-child(2)');
+          if (featureRows[0] && featureRows[0].classList.contains('hidden')) {
+            columnText.textContent = 'Click to expand';
+          } else {
+            columnText.textContent = 'Click to collapse';
+          }
+        });
+      });
+  
+      // FAQ expand/collapse
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+          const answer = question.nextElementSibling;
+          const toggle = question.querySelector('.faq-toggle');
+          answer.classList.toggle('show');
+  
+          if (toggle) {
+            toggle.textContent = answer.classList.contains('show') ? '-' : '+';
+          }
+        });
+      });
+    });
+  </script>  
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid",
+        "stats": {
+          ".read": "$uid === auth.uid",
+          ".write": "$uid === auth.uid",
+          "posts": {
+            ".validate": "newData.isNumber()"
+          },
+          "views": {
+            ".validate": "newData.isNumber()"
+          },
+          "comments": {
+            ".validate": "newData.isNumber()"
+          },
+          "visits": {
+            "labels": {
+              ".validate": "newData.isString() || newData.hasChildren()"
+            },
+            "data": {
+              ".validate": "newData.hasChildren() && newData.val().length <= 12"
+            }
+          }
+        },
+        "blogStats": {
+          ".read": "$uid === auth.uid",
+          ".write": "$uid === auth.uid",
+          "totalPosts": {
+            ".validate": "newData.isNumber()"
+          },
+          "totalViews": {
+            ".validate": "newData.isNumber()"
+          },
+          "totalComments": {
+            ".validate": "newData.isNumber()"
+          },
+          "totalSubscribers": {
+            ".validate": "newData.isNumber()"
+          },
+          "recentActivity": {
+            "$activity": {
+              ".validate": "newData.hasChildren() && newData.child('timestamp').isNumber() && newData.child('type').isString()"
+            }
+          }
+        },
+        "subscribers": {
+          ".read": "$uid === auth.uid",
+          ".write": "$uid === auth.uid",
+          "$subscriberId": {
+            ".validate": "newData.hasChildren() && newData.child('subscribedAt').isNumber()"
+          }
+        },
+        "posts": {
+          ".read": "$uid === auth.uid",
+          ".write": "$uid === auth.uid",
+          "$postId": {
+            ".validate": "newData.hasChildren()",
+            "views": {
+              ".validate": "newData.isNumber()"
+            },
+            "likes": {
+              ".validate": "newData.isNumber()"
+            },
+            "comments": {
+              "$commentId": {
+                ".validate": "newData.hasChildren() && newData.child('timestamp').isNumber()"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+} 

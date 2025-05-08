@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Posts</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/blog.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="blog-header">
+        <div class="container">
+            <h1>
+                <img src="assests/images/feather-wing-svgrepo-com.svg" class="feather-icon" alt="Feather Icon">
+                BlogDash
+            </h1>
+            <nav>
+                <ul>
+                    <li><a href="../admin/index.html">Home</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" aria-label="Toggle dark mode">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="theme-icon">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM6.3 17.7a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 1 1-1.1 1.1L3.5 4.6a.8.8 0 0 1 0-1.1zm14.2 14.2a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 0 1-1.1 1.1l-1.8-1.8a.8.8 0 0 1 0-1.1z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="blog-content">
+        <div class="container">
+            <div class="posts-grid" id="posts-container">
+                <!-- Posts will be dynamically inserted here -->
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading posts...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="blog-footer">
+        <div class="container">
+            <p>&copy; 2024 BlogDash. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    
+    <!-- Initialize Firebase -->
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB1FMx76cBLz8LZq8-ai765u2mV-caQQZg",
+            authDomain: "cloudblog-12cb8.firebaseapp.com",
+            databaseURL: "https://cloudblog-12cb8-default-rtdb.firebaseio.com",
+            projectId: "cloudblog-12cb8",
+            storageBucket: "cloudblog-12cb8.appspot.com",
+            messagingSenderId: "632917097509",
+            appId: "1:632917097509:web:35791d6861771bd3fc93cc",
+            measurementId: "G-4DFB318NC2"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+    </script>
+    
+    <!-- Blog Scripts -->
+    <script src="js/blog.js" type="module"></script>
+
+    <!-- Post Modal -->
+    <div id="post-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-post-content">
+                <!-- Post content will be loaded here -->
+            </div>
+            <div class="post-interactions">
+                <div class="comment-section">
+                    <h3>Comments</h3>
+                    <div id="comments-container"></div>
+                    <form id="comment-form">
+                        <textarea placeholder="Add a comment..." required></textarea>
+                        <button type="submit">Post Comment</button>
+                    </form>
+                </div>
+                <div class="post-actions">
+                    <button class="like-btn"><i class="far fa-heart"></i> <span class="like-count">0</span></button>
+                    <button class="subscribe-btn"><i class="far fa-bell"></i> Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const themeIcon = themeToggle.querySelector('.theme-icon');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('blog-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            // Set initial icon based on saved theme
+            themeIcon.innerHTML = savedTheme === 'light' 
+                ? '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM6.3 17.7a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 1 1-1.1 1.1L3.5 4.6a.8.8 0 0 1 0-1.1zm14.2 14.2a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 0 1-1.1 1.1l-1.8-1.8a.8.8 0 0 1 0-1.1z"/>'
+                : '<path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 22c-5.5 0-10-4.5-10-10s4.5-10 10-10c1.8 0 3.5.5 5 1.3-3.2 1-5.5 4-5.5 7.5s2.3 6.5 5.5 7.5c-1.5.8-3.2 1.3-5 1.3zm-7-10c0 3.9 3.1 7 7 7s7-3.1 7-7-3.1-7-7-7-7 3.1-7 7z"/>';
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('blog-theme', newTheme);
+                
+                // Update icon
+                themeIcon.innerHTML = newTheme === 'light' 
+                    ? '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM6.3 17.7a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 1 1-1.1 1.1L3.5 4.6a.8.8 0 0 1 0-1.1zm14.2 14.2a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 0 1-1.1 1.1l-1.8-1.8a.8.8 0 0 1 0-1.1z"/>'
+                    : '<path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 22c-5.5 0-10-4.5-10-10s4.5-10 10-10c1.8 0 3.5.5 5 1.3-3.2 1-5.5 4-5.5 7.5s2.3 6.5 5.5 7.5c-1.5.8-3.2 1.3-5 1.3zm-7-10c0 3.9 3.1 7 7 7s7-3.1 7-7-3.1-7-7-7-7 3.1-7 7z"/>';
+            });
+        });
+    </script>
+</body>
+</html> 

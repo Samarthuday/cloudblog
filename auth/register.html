@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - BlogDash</title>
+  <meta name="description" content="Create your BlogDash account to start publishing amazing content.">
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../auth/auth.css" />
+  <link rel="icon" href="../assets/favicon/favicon.ico" type="image/x-icon">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+  
+  <!-- Your Firebase config and auth.js -->
+  <script src="../config/firebase.js" type="module"></script>
+  <script src="auth.js" type="module"></script>
+  <script src="../script.js" type="module"></script>
+</head>
+
+<body class="auth-page">
+  <nav class="navbar">
+    <div class="nav-content">
+      <a href="../admin/index.html" class="logo">
+        <img src="../assests/images/feather-wing-svgrepo-com.svg" alt="BlogDash Logo" class="logo-img">
+        <span>BlogDash</span>
+      </a>
+      <div class="nav-links">
+        <a href="../admin/index.html">Home</a>
+        <a href="../admin/index.html#features-section">Features</a>
+        <a href="../admin/index.html#pricing-section">Pricing</a>
+        <!--<a href="../blog">Blog</a>-->
+        <a href="../pages/blog-templates.html">Templates</a>
+        <a href="../pages/support.html">Support</a>
+      </div>
+      <div class="auth-buttons">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="theme-icon">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM6.3 17.7a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 1 1-1.1 1.1L3.5 4.6a.8.8 0 0 1 0-1.1zm14.2 14.2a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 0 1-1.1 1.1l-1.8-1.8a.8.8 0 0 1 0-1.1z"/>
+          </svg>
+        </button>
+        <a href="login.html" class="btn btn-text">Log In</a>
+        <a href="register.html" class="btn btn-primary active">Sign Up Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>Create Your Account</h1>
+        <p>Join BlogDash and start your blogging journey</p>
+      </div>
+
+      <form id="registerForm" class="auth-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name">
+          <div class="error-message" id="name-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+          <div class="error-message" id="email-error"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="password-input-container">
+            <input type="password" id="password" name="password" required autocomplete="new-password">
+            <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+              <img src="../assests/images/eye-off-svgrepo-com.svg" alt="Show Password" class="password-icon">
+            </button>
+          </div>
+          <div class="error-message" id="password-error"></div>
+          <div class="password-strength">
+            <div class="password-strength-meter">
+              <div class="password-strength-value"></div>
+            </div>
+            <div class="password-strength-text"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="password-input-container">
+            <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="new-password">
+            <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+              <img src="../assests/images/eye-off-svgrepo-com.svg" alt="Show Password" class="password-icon">
+            </button>
+          </div>
+          <div class="error-message" id="confirmPassword-error"></div>
+        </div>
+
+        <div class="form-group remember-me">
+          <label class="checkbox-container">
+            <input type="checkbox" name="terms" id="terms" required>
+            <span class="checkmark"></span>
+            <span>I agree to the <a href="../pages/terms.html">Terms of Service</a> and <a href="../pages/privacy.html">Privacy Policy</a></span>
+          </label>
+          <div class="error-message" id="terms-error"></div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        </div>
+
+        <div class="auth-message error-message" id="register-error"></div>
+        <div class="auth-message success-message" id="register-success"></div>
+      </form>
+
+      <div class="auth-footer">
+        <p>Already have an account? <a href="login.html">Log In</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script type="module">
+    import { loadFooter } from '../components/footer.js';
+    import { getFirebaseServices } from '../config/firebase.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    
+    // Load footer only
+    loadFooter();
+
+    // Get Firebase services
+    const { auth } = getFirebaseServices();
+
+    // Theme toggle functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeToggle = document.querySelector('.theme-toggle');
+      const themeIcon = themeToggle.querySelector('.theme-icon');
+      
+      // Check for saved theme preference for register page
+      const savedTheme = localStorage.getItem('register-theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      
+      // Set initial icon based on saved theme
+      themeIcon.innerHTML = savedTheme === 'light' 
+        ? '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM6.3 17.7a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 1 1-1.1 1.1L3.5 4.6a.8.8 0 0 1 0-1.1zm14.2 14.2a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 0 1-1.1 1.1l-1.8-1.8a.8.8 0 0 1 0-1.1z"/>'
+        : '<path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 22c-5.5 0-10-4.5-10-10s4.5-10 10-10c1.8 0 3.5.5 5 1.3-3.2 1-5.5 4-5.5 7.5s2.3 6.5 5.5 7.5c-1.5.8-3.2 1.3-5 1.3zm-7-10c0 3.9 3.1 7 7 7s7-3.1 7-7-3.1-7-7-7-7 3.1-7 7z"/>';
+      
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('register-theme', newTheme);
+        
+        // Update icon
+        themeIcon.innerHTML = newTheme === 'light' 
+          ? '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM6.3 17.7a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 1 1-1.1 1.1L3.5 4.6a.8.8 0 0 1 0-1.1zm14.2 14.2a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 0 1-1.1 1.1l-1.8-1.8a.8.8 0 0 1 0-1.1z"/>'
+          : '<path fill-rule="evenodd" clip-rule="evenodd" d="M12.1 22c-5.5 0-10-4.5-10-10s4.5-10 10-10c1.8 0 3.5.5 5 1.3-3.2 1-5.5 4-5.5 7.5s2.3 6.5 5.5 7.5c-1.5.8-3.2 1.3-5 1.3zm-7-10c0 3.9 3.1 7 7 7s7-3.1 7-7-3.1-7-7-7-7 3.1-7 7z"/>';
+      });
+    });
+
+    // Check if we're already on the register page to prevent redirect loops
+    const isRegisterPage = window.location.pathname.includes('register.html');
+    
+    // Only redirect to dashboard if we're on the register page and user is authenticated
+    onAuthStateChanged(auth, (user) => {
+      if (user && isRegisterPage) {
+        const currentPath = window.location.pathname;
+        if (!currentPath.includes('dashboard.html')) {
+          window.location.replace('../dashboard/dashboard.html');
+        }
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Fade in register form
+        const authContainer = document.querySelector(".auth-container");
+        if (authContainer) {
+            authContainer.style.opacity = "0";
+            authContainer.style.transition = "opacity 0.5s ease-in-out";
+            setTimeout(() => {
+                authContainer.style.opacity = "1";
+            }, 100);
+        }
+    
+        // Password toggle functionality for both password fields
+        const togglePasswordButtons = document.querySelectorAll(".toggle-password");
+        const passwordInputs = [
+            document.getElementById("password"),
+            document.getElementById("confirmPassword")
+        ];
+        
+        togglePasswordButtons.forEach((button, index) => {
+            const passwordInput = passwordInputs[index];
+            const passwordIcon = button.querySelector(".password-icon");
+            
+            if (button && passwordInput && passwordIcon) {
+                button.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    
+                    // Toggle password visibility
+                    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                    passwordInput.setAttribute("type", type);
+                    
+                    // Toggle the icon
+                    const isPasswordVisible = type === "text";
+                    passwordIcon.src = isPasswordVisible 
+                        ? "../assests/images/eye-password-show-svgrepo-com.svg"
+                        : "../assests/images/eye-off-svgrepo-com.svg";
+                    passwordIcon.alt = isPasswordVisible ? "Hide Password" : "Show Password";
+                    
+                    // Update button aria-label for accessibility
+                    button.setAttribute("aria-label", isPasswordVisible ? "Hide Password" : "Show Password");
+                });
+            }
+        });
+    
+        // Form handling
+        const form = document.getElementById("registerForm");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const termsCheckbox = document.getElementById("terms");
+        const registerError = document.getElementById("register-error");
+        const registerSuccess = document.getElementById("register-success");
+        const strengthMeter = document.querySelector(".password-strength-value");
+        const strengthText = document.querySelector(".password-strength-text");
+    
+        // Password strength meter
+        if (passwordInput && strengthMeter && strengthText) {
+            passwordInput.addEventListener("input", function() {
+                const strength = checkPasswordStrength(this.value);
+                updatePasswordStrength(strength);
+            });
+        }
+
+        // Form validation and submission
+        if (form) {
+            form.addEventListener("submit", async function(e) {
+                e.preventDefault();
+                let isValid = true;
+
+                // Reset error messages
+                registerError.style.display = "none";
+                registerSuccess.style.display = "none";
+                document.querySelectorAll(".error-message").forEach(el => el.style.display = "none");
+
+                // Validate name
+                if (!nameInput.value.trim()) {
+                    document.getElementById("name-error").textContent = "Name is required";
+                    document.getElementById("name-error").style.display = "block";
+                    isValid = false;
+                }
+
+                // Validate email
+                if (!emailInput.value.trim()) {
+                    document.getElementById("email-error").textContent = "Email is required";
+                    document.getElementById("email-error").style.display = "block";
+                    isValid = false;
+                } else if (!isValidEmail(emailInput.value)) {
+                    document.getElementById("email-error").textContent = "Please enter a valid email address";
+                    document.getElementById("email-error").style.display = "block";
+                    isValid = false;
+                }
+
+                // Validate password
+                if (!passwordInput.value) {
+                    document.getElementById("password-error").textContent = "Password is required";
+                    document.getElementById("password-error").style.display = "block";
+                    isValid = false;
+                } else if (passwordInput.value.length < 8) {
+                    document.getElementById("password-error").textContent = "Password must be at least 8 characters";
+                    document.getElementById("password-error").style.display = "block";
+                    isValid = false;
+                }
+
+                // Validate confirm password
+                if (!confirmPasswordInput.value) {
+                    document.getElementById("confirmPassword-error").textContent = "Please confirm your password";
+                    document.getElementById("confirmPassword-error").style.display = "block";
+                    isValid = false;
+                } else if (confirmPasswordInput.value !== passwordInput.value) {
+                    document.getElementById("confirmPassword-error").textContent = "Passwords do not match";
+                    document.getElementById("confirmPassword-error").style.display = "block";
+                    isValid = false;
+                }
+
+                // Validate terms
+                if (!termsCheckbox.checked) {
+                    document.getElementById("terms-error").textContent = "You must agree to the Terms of Service";
+                    document.getElementById("terms-error").style.display = "block";
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    try {
+                        // Disable form submission while processing
+                        const submitButton = form.querySelector('button[type="submit"]');
+                        submitButton.disabled = true;
+                        submitButton.textContent = "Creating Account...";
+
+                        // Create user account
+                        const userCredential = await auth.createUserWithEmailAndPassword(
+                            emailInput.value,
+                            passwordInput.value
+                        );
+
+                        // Update user profile with name
+                        await userCredential.user.updateProfile({
+                            displayName: nameInput.value.trim()
+                        });
+
+                        // Show success message
+                        registerSuccess.textContent = "Account created successfully! Redirecting...";
+                        registerSuccess.style.display = "block";
+
+                        // Redirect to dashboard
+                        setTimeout(() => {
+                            window.location.href = "../dashboard/dashboard.html";
+                        }, 1500);
+
+                    } catch (error) {
+                        // Enable form submission
+                        submitButton.disabled = false;
+                        submitButton.textContent = "Create Account";
+
+                        // Handle specific error cases
+                        let errorMessage = "An error occurred. Please try again.";
+                        switch (error.code) {
+                            case 'auth/email-already-in-use':
+                                errorMessage = "This email is already registered. Please use a different email or try logging in.";
+                                break;
+                            case 'auth/invalid-email':
+                                errorMessage = "Please enter a valid email address.";
+                                break;
+                            case 'auth/operation-not-allowed':
+                                errorMessage = "Email/password accounts are not enabled. Please contact support.";
+                                break;
+                            case 'auth/weak-password':
+                                errorMessage = "Please choose a stronger password.";
+                                break;
+                        }
+
+                        // Show error message
+                        registerError.textContent = errorMessage;
+                        registerError.style.display = "block";
+                    }
+                }
+            });
+
+            // Clear error messages on input
+            [nameInput, emailInput, passwordInput, confirmPasswordInput].forEach(input => {
+                input.addEventListener("input", function() {
+                    const errorElement = document.getElementById(`${this.id}-error`);
+                    if (errorElement) {
+                        errorElement.style.display = "none";
+                    }
+                    registerError.style.display = "none";
+                });
+            });
+
+            termsCheckbox.addEventListener("change", function() {
+                document.getElementById("terms-error").style.display = "none";
+                registerError.style.display = "none";
+            });
+        }
+    });
+    
+    function checkPasswordStrength(password) {
+        let strength = 0;
+        
+        if (password.length >= 8) strength += 25;
+        if (password.match(/[a-z]+/)) strength += 25;
+        if (password.match(/[A-Z]+/)) strength += 25;
+        if (password.match(/[0-9]+/)) strength += 12.5;
+        if (password.match(/[!@#$%^&*(),.?":{}|<>]+/)) strength += 12.5;
+        
+        return strength;
+    }
+    
+    function updatePasswordStrength(strength) {
+        const strengthMeter = document.querySelector(".password-strength-value");
+        const strengthText = document.querySelector(".password-strength-text");
+        
+        if (strengthMeter && strengthText) {
+            strengthMeter.style.width = strength + "%";
+            
+            if (strength < 25) {
+                strengthMeter.style.backgroundColor = "#ff4d4f";
+                strengthText.textContent = "Weak password";
+                strengthText.style.color = "#ff4d4f";
+            } else if (strength < 50) {
+                strengthMeter.style.backgroundColor = "#faad14";
+                strengthText.textContent = "Fair password";
+                strengthText.style.color = "#faad14";
+            } else if (strength < 75) {
+                strengthMeter.style.backgroundColor = "#52c41a";
+                strengthText.textContent = "Good password";
+                strengthText.style.color = "#52c41a";
+            } else {
+                strengthMeter.style.backgroundColor = "#1890ff";
+                strengthText.textContent = "Strong password";
+                strengthText.style.color = "#1890ff";
+            }
+        }
+    }
+
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email.toLowerCase());
+    }
+  </script>
+</body>
+
+</html>

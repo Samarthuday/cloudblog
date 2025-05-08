@@ -1,0 +1,2801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BlogDash - Dark Theme Blog Templates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        :root {
+            --primary: #6200ea;
+            --primary-light: #9d46ff;
+            --primary-dark: #3700b3;
+            --secondary: #03dac6;
+            --secondary-dark: #018786;
+            --text-on-dark: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #555555;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --primary: #bb86fc;
+            --primary-light: #e2b9ff;
+            --primary-dark: #8858c8;
+            --secondary: #03dac6;
+            --secondary-dark: #018786;
+            --text-on-dark: #ffffff;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --background: #121212;
+            --card-bg: #1e1e1e;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Animated Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--text-on-dark);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/api/placeholder/1200/400') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.5px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .header-btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: #000;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(3, 218, 198, 0.4);
+            transition: var(--transition);
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .header-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(3, 218, 198, 0.5);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        /* Enhanced Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 30px;
+            z-index: 2;
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .card-body {
+            padding: 25px;
+            position: relative;
+        }
+
+        .card-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .card-category i {
+            margin-right: 6px;
+        }
+
+        .card-body h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-body h3 {
+            color: var(--primary);
+        }
+
+        .card-body p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            transition: color 0.3s ease;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(125, 125, 125, 0.1);
+            transition: border-color 0.3s ease;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .card-meta i {
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+
+        .card-meta span+span {
+            margin-left: 15px;
+        }
+
+        .card-link {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .card-link i {
+            margin-left: 6px;
+            transition: var(--transition);
+        }
+
+        .card-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .card-link:hover i {
+            transform: translateX(3px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            padding: 80px 20px;
+            color: var(--text-on-dark);
+            text-align: center;
+            margin-top: 60px;
+            transition: background 0.3s ease;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: #fff;
+            color: var(--primary);
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: #a0aec0;
+            padding: 0;
+        }
+
+        body.dark-mode footer {
+            background: #1a1a1a;
+        }
+
+        .footer-top {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            background: #1a202c;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark-mode .footer-bottom {
+            background: #111111;
+        }
+
+        /* Article Modal */
+        #article-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
+        }
+
+        #article-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 20px;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        #article-modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .article-header {
+            position: relative;
+            height: 400px;
+        }
+
+        .article-header-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 30%, rgba(0, 0, 0, 0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+            color: #fff;
+        }
+
+        .article-tag {
+            background: var(--secondary);
+            color: #000;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .article-title {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .article-meta img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .article-meta-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-meta-info span {
+            margin-right: 15px;
+        }
+
+        .article-meta-info small {
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .article-meta-info small i {
+            margin-right: 5px;
+        }
+
+        .article-content {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .article-content h2 {
+            font-size: 1.8rem;
+            margin: 30px 0 20px;
+            color: var(--text-primary);
+        }
+
+        .article-content h3 {
+            font-size: 1.4rem;
+            margin: 25px 0 15px;
+            color: var(--text-primary);
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            margin: 25px 0;
+            background: rgba(125, 125, 125, 0.05);
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 20px 0 20px 20px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        .article-image {
+            margin: 30px 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .article-image-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        .article-footer {
+            padding: 30px 40px;
+            border-top: 1px solid rgba(125, 125, 125, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .article-tags a {
+            background: rgba(125, 125, 125, 0.1);
+            color: var(--text-secondary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .article-tags a:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .article-share {
+            display: flex;
+            align-items: center;
+        }
+
+        .article-share-label {
+            margin-right: 15px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .article-share-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .article-share-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(125, 125, 125, 0.1);
+            border-radius: 50%;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .article-share-links a:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .use-this-template {
+            display: block;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 30px auto 0;
+            width: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .use-this-template:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            header p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .card-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .article-header-overlay {
+                padding: 20px;
+            }
+
+            .article-content {
+                padding: 25px;
+            }
+
+            .article-footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .article-tags {
+                justify-content: center;
+            }
+
+            .article-share {
+                justify-content: center;
+            }
+
+            .use-this-template {
+                width: 80%;
+            }
+        }
+
+        /* Core styles from your original template remain unchanged */
+
+        /* Updated Culinary Template Specific Styles */
+        .culinary-template .recipe-hero {
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        .culinary-template .recipe-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .culinary-template .recipe-title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .culinary-template .recipe-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .culinary-template .recipe-meta {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .culinary-template .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .culinary-template .meta-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .culinary-template .meta-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .culinary-template .meta-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .culinary-template .recipe-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        .culinary-template .ingredients-section {
+            background-color: #f5f7f9;
+            border-radius: 8px;
+            padding: 25px;
+        }
+
+        .culinary-template .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--text-primary);
+        }
+
+        .culinary-template .ingredients-list {
+            list-style: none;
+        }
+
+        .culinary-template .ingredients-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .culinary-template .ingredient-amount {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .culinary-template .instructions ol {
+            padding-left: 20px;
+            margin-top: 20px;
+        }
+
+        .culinary-template .instructions li {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* Added styles for Font Awesome icons */
+        .fas,
+        .far {
+            display: inline-block;
+            line-height: 1;
+        }
+
+        /* Fix for image path */
+        .culinary-template .recipe-hero img {
+            max-width: 100%;
+        }
+
+        /* Added styles for Chef's Notes */
+        .culinary-template .instructions p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            .culinary-template .recipe-meta {
+                gap: 20px;
+            }
+
+            .culinary-template .recipe-content {
+                grid-template-columns: 1fr;
+            }
+
+            .culinary-template .recipe-title {
+                font-size: 2rem;
+            }
+
+            .culinary-template .recipe-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Improved preview modal styles */
+        #culinaryPreview {
+            z-index: 1000;
+        }
+
+        #culinaryPreview .preview-container {
+            padding-bottom: 40px;
+        }
+
+        /* Preview Modal Styles */
+        .preview-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            /* Semi-transparent background */
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .preview-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .preview-container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 20px;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .preview-modal.active .preview-container {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .preview-header {
+            background: var(--primary);
+            color: var(--text-on-dark);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-header h2 {
+            font-size: 1.5rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .preview-header h2 i {
+            margin-right: 10px;
+        }
+
+        .preview-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .preview-btn {
+            background: var(--secondary);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .preview-btn.secondary {
+            background: var(--primary-light);
+        }
+
+        .preview-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-preview {
+            background: transparent;
+            border: none;
+            color: var(--text-on-dark);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-preview:hover {
+            color: var(--secondary);
+            transform: rotate(90deg);
+        }
+
+        /* Template Content Styles */
+        .template-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .article-hero {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px 10px 0 0;
+            /* Rounded top corners */
+        }
+
+        .article-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-title {
+            font-size: 2.2rem;
+            margin: 20px 0 10px;
+            color: var(--text-primary);
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .article-meta .author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .article-meta .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .article-meta .date,
+        .article-meta .category {
+            font-size: 0.9rem;
+        }
+
+        .article-meta .category i {
+            margin-right: 5px;
+        }
+
+        .article-content {
+            margin-top: 20px;
+        }
+
+        .article-content p,
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .article-content h2,
+        .article-content h3 {
+            margin: 20px 0 10px;
+            color: var(--text-primary);
+        }
+
+        .article-content ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .article-content ol {
+            list-style: decimal;
+            padding-left: 20px;
+        }
+
+        .tech-specs {
+            margin-top: 30px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .spec-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .spec-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .spec-item h4 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .spec-item p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        /* Editable Highlight Styles */
+        .editable-highlight {
+            background: rgba(255, 255, 0, 0.1);
+            /* Light yellow highlight */
+            border-radius: 5px;
+            padding: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .editable-highlight:hover {
+            background: rgba(255, 255, 0, 0.2);
+            /* Slightly darker highlight on hover */
+        }
+
+        /* Ensuring fonts for icons load properly */
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+        /* Dark Mode Toggle */
+        .theme-switch {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .theme-switch:hover {
+            transform: scale(1.1);
+        }
+
+        /* Development Template Specific Styles */
+        .development-template .tutorial-hero {
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        .development-template .tutorial-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .development-template .tutorial-meta {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(125, 125, 125, 0.1);
+        }
+
+        .development-template .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+        }
+
+        .development-template .meta-item i {
+            color: var(--primary);
+        }
+
+        .development-template .code-block {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .development-template .code-block pre {
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .development-template .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .development-template .step {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(125, 125, 125, 0.05);
+            border-radius: 10px;
+        }
+
+        .development-template .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .development-template .step-content {
+            flex: 1;
+        }
+
+        .development-template .step-content h3 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        /* Mindfulness Template Specific Styles */
+        .mindfulness-template .meditation-hero {
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        .mindfulness-template .meditation-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mindfulness-template .practice-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            padding: 20px 0;
+            border-top: 1px solid rgba(125, 125, 125, 0.1);
+            border-bottom: 1px solid rgba(125, 125, 125, 0.1);
+        }
+
+        .mindfulness-template .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .mindfulness-template .meta-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .mindfulness-template .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .mindfulness-template .meditation-step {
+            text-align: center;
+            padding: 30px;
+            background: rgba(125, 125, 125, 0.05);
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .mindfulness-template .meditation-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .mindfulness-template .meditation-step i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .mindfulness-template .meditation-step h3 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .mindfulness-template .technique-steps {
+            background: rgba(125, 125, 125, 0.05);
+            border-radius: 10px;
+            padding: 30px 30px 30px 50px;
+            margin: 20px 0;
+        }
+
+        .mindfulness-template .technique-steps li {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .mindfulness-template .technique-steps li:last-child {
+            margin-bottom: 0;
+        }
+
+        .mindfulness-template .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .mindfulness-template .benefit-card {
+            text-align: center;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .mindfulness-template .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .mindfulness-template .benefit-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .mindfulness-template .benefit-card h3 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .mindfulness-template .benefit-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            .development-template .tutorial-meta,
+            .mindfulness-template .practice-meta {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .development-template .step {
+                flex-direction: column;
+            }
+
+            .mindfulness-template .step-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mindfulness-template .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Photography Template Specific Styles */
+        .photography-template .photo-header {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .photography-template .photo-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photography-template .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .photography-template .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--card-bg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .photography-template .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photography-template .photo-caption {
+            padding: 15px;
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Travel Template Specific Styles */
+        .travel-template .destination-hero {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 30px;
+        }
+
+        .travel-template .destination-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .travel-template .destination-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            padding: 20px 0;
+            border-top: 1px solid rgba(125, 125, 125, 0.1);
+            border-bottom: 1px solid rgba(125, 125, 125, 0.1);
+        }
+
+        .travel-template .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .travel-template .meta-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .travel-template .meta-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .travel-template .meta-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .travel-template .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .travel-template .info-card {
+            text-align: center;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .travel-template .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .travel-template .info-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .travel-template .info-card h3 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .travel-template .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            .photography-template .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .photography-template .gallery-item img {
+                height: 250px;
+            }
+
+            .travel-template .destination-meta {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .travel-template .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .travel-template .destination-hero,
+            .photography-template .photo-header {
+                height: 300px;
+            }
+        }
+
+        /* Add these navbar styles */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row; /* Ensure horizontal layout */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-img {
+            height: 32px;
+            margin-right: 0.5rem;
+        }
+
+        .logo span {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Header actions styles */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: 2rem; /* Add some space between nav links and actions */
+        }
+
+        .btn {
+            font-weight: 500;
+            text-decoration: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 50px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .btn-text {
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle .bar {
+            display: block;
+            width: 24px;
+            height: 2px;
+            margin: 5px 0;
+            background-color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 991px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .main-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--card-bg);
+                padding: 1rem;
+            }
+            
+            .main-nav.active {
+                display: block;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links li {
+                width: 100%;
+            }
+            
+            .header-actions {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="../admin/index.html" class="logo">
+                    <img src="../assests/images/feather-wing-svgrepo-com.svg" alt="CloudBlog Logo" class="logo-img">
+                    <span>CloudBlog</span>
+                </a>
+                
+                <!-- Navigation -->
+                <nav class="main-nav">
+                    <ul class="nav-links">
+                        <li class="dropdown">
+                            <a href="../admin/index.html#features-section">Features</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">Templates <span class="dropdown-arrow">▾</span></a>
+                            <div class="dropdown-menu">
+                                <a href="../pages/blog-templates.html">Blog Templates</a>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="../pages/pricing.html">Pricing</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">Resources <span class="dropdown-arrow">▾</span></a>
+                            <div class="dropdown-menu">
+                                <a href="../pages/support.html">Support</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Action Buttons -->
+                <div class="header-actions">
+                    <a href="../auth/login.html" class="btn btn-text">Login</a>
+                    <a href="../auth/register.html" class="btn btn-primary">Signup</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Elegant Blog Templates</h1>
+                <p>Choose from our premium dark mode templates for your next article</p>
+                <a href="#" class="header-btn">Browse Templates</a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <div class="container">
+                <h2 class="section-title">Featured Templates</h2>
+
+                <div class="card-grid">
+                    <!-- Card 1 -->
+                    <div class="card" data-article="productivity">
+                        <span class="card-badge">Popular</span>
+                        <div class="card-img-wrapper">
+                            <img src="../assests/images/techwork.jpg" alt="Tech workspace">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category">
+                                <i class="fas fa-desktop"></i> Productivity
+                            </div>
+                            <h3>Ultimate Workstation Setup</h3>
+                            <p>A clean template for productivity articles with focused layout and technical details.</p>
+                            <div class="card-footer">
+                                <div class="card-meta">
+                                    <span><i class="far fa-eye"></i> 2.4k</span>
+                                    <span><i class="far fa-heart"></i> 184</span>
+                                </div>
+                                <a href="#" class="card-link" data-target="productivityPreview">Preview <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Modal for Productivity Template -->
+                    <div id="productivityPreview" class="preview-modal">
+                        <div class="preview-container">
+                            <div class="preview-header">
+                                <h2><i class="fas fa-desktop"></i> Productivity Template</h2>
+                                <div class="preview-actions">
+                                    <button class="preview-btn secondary"><i class="far fa-eye"></i> Live Demo</button>
+                                    <button class="preview-btn"><i class="fas fa-pencil-alt"></i> Use This
+                                        Template</button>
+                                    <button class="close-preview"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="template-content productivity-template">
+                                <div class="article-hero editable-highlight">
+                                    <img src="../assests/images/techwork.jpg" alt="Modern workspace setup">
+                                </div>
+                                <h1 class="article-title editable-highlight">Ultimate Workstation Setup for Maximum
+                                    Productivity</h1>
+                                <div class="article-meta">
+                                    <div class="author">
+                                        <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
+                                        <span>By John Developer</span>
+                                    </div>
+                                    <div class="date">Published May 15, 2025</div>
+                                    <div class="category"><i class="fas fa-desktop"></i> Productivity</div>
+                                </div>
+                                <div class="article-content">
+                                    <p class="editable-highlight">Creating the perfect workspace isn't just about
+                                        aesthetics—it's about designing an environment that enhances focus, creativity,
+                                        and efficiency. In this guide, we'll walk through the essential components of a
+                                        productivity-boosting workstation, from hardware selection to ergonomic
+                                        considerations.</p>
+                                    <p>Whether you're a developer, designer, writer, or remote professional, your
+                                        physical workspace plays a crucial role in your daily output and long-term
+                                        well-being.</p>
+                                    <h2 class="editable-highlight">Core Components of a Productive Workspace</h2>
+                                    <p>Before diving into specific recommendations, let's consider the foundational
+                                        elements that make up an effective workstation:</p>
+                                    <ul>
+                                        <li><strong>Ergonomic furniture</strong> that supports proper posture and
+                                            comfort during long working sessions</li>
+                                        <li><strong>Appropriate lighting</strong> to reduce eye strain and create the
+                                            right atmosphere</li>
+                                        <li><strong>Tech hardware</strong> that handles your specific workflow
+                                            requirements efficiently</li>
+                                        <li><strong>Organization systems</strong> that keep essential items accessible
+                                            while reducing clutter</li>
+                                        <li><strong>Personalization elements</strong> that make the space inspiring and
+                                            motivating</li>
+                                    </ul>
+                                    <div class="tech-specs">
+                                        <h3>Recommended Equipment Specifications</h3>
+                                        <div class="specs-grid">
+                                            <div class="spec-item editable-highlight">
+                                                <h4>Display Setup</h4>
+                                                <p>27" 4K monitor (primary)<br>24" 1080p monitor (vertical)<br>Display
+                                                    calibration: sRGB, 350 nits</p>
+                                            </div>
+                                            <div class="spec-item">
+                                                <h4>Input Devices</h4>
+                                                <p>Mechanical keyboard with tactile switches<br>Ergonomic mouse with
+                                                    programmable buttons<br>Drawing tablet (optional)</p>
+                                            </div>
+                                            <div class="spec-item">
+                                                <h4>Audio Setup</h4>
+                                                <p>Noise-cancelling headphones<br>Desktop microphone with pop
+                                                    filter<br>Acoustic panels for echo reduction</p>
+                                            </div>
+                                            <div class="spec-item">
+                                                <h4>Connectivity</h4>
+                                                <p>USB-C hub with power delivery<br>Ethernet connection (1Gbps
+                                                    minimum)<br>UPS backup power supply</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2>Creating an Ergonomic Environment</h2>
+                                    <p class="editable-highlight">Ergonomics isn't just a buzzword—it's the science of
+                                        designing your workspace to fit your body and work habits. Here are the key
+                                        measurements and adjustments to consider:</p>
+                                    <ul>
+                                        <li>Your eyes should be level with the top third of your monitor, approximately
+                                            20-30 inches away</li>
+                                        <li>Chair height should allow your feet to rest flat on the floor with knees at
+                                            90 degrees</li>
+                                        <li>Desk height should position your elbows at 90-110 degrees when typing</li>
+                                        <li>Include a footrest if needed to maintain proper posture</li>
+                                    </ul>
+                                    <p>Remember that the best setup is one that allows for movement and position changes
+                                        throughout the day. Consider a sit-stand desk arrangement to promote better
+                                        circulation and reduce the negative effects of prolonged sitting.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="card" data-article="development">
+                        <div class="card-img-wrapper">
+                            <img src="../assests/images/coding.jpg" alt="Coding">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category">
+                                <i class="fas fa-code"></i> Development
+                            </div>
+                            <h3>Code Tutorial Layout</h3>
+                            <p>Perfect template for coding tutorials with syntax highlighting and step-by-step sections.</p>
+                            <div class="card-footer">
+                                <div class="card-meta">
+                                    <span><i class="far fa-eye"></i> 1.8k</span>
+                                    <span><i class="far fa-heart"></i> 156</span>
+                                </div>
+                                <a href="#" class="card-link" data-target="developmentPreview">Preview <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Modal for Development Template -->
+                    <div id="developmentPreview" class="preview-modal">
+                        <div class="preview-container">
+                            <div class="preview-header">
+                                <h2><i class="fas fa-code"></i> Development Template</h2>
+                                <div class="preview-actions">
+                                    <button class="preview-btn secondary"><i class="far fa-eye"></i> Live Demo</button>
+                                    <button class="preview-btn"><i class="fas fa-pencil-alt"></i> Use This Template</button>
+                                    <button class="close-preview"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="template-content development-template">
+                                <div class="tutorial-hero editable-highlight">
+                                    <img src="../assests/images/coding.jpg" alt="Code editor with syntax highlighting">
+                                </div>
+                                <h1 class="article-title editable-highlight">Building a Modern React Application</h1>
+                                <p class="article-subtitle editable-highlight">A comprehensive guide to creating a full-stack web application using React and Node.js</p>
+                                
+                                <div class="tutorial-meta">
+                                    <div class="meta-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>45 min read</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-layer-group"></i>
+                                        <span>Intermediate</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-code-branch"></i>
+                                        <span>React 18.0</span>
+                                    </div>
+                                </div>
+
+                                <div class="article-content">
+                                    <div class="prerequisites editable-highlight">
+                                        <h2>Prerequisites</h2>
+                                        <ul>
+                                            <li>Node.js v14 or higher installed</li>
+                                            <li>Basic JavaScript knowledge</li>
+                                            <li>Familiarity with React concepts</li>
+                                            <li>Code editor (VS Code recommended)</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="setup-section editable-highlight">
+                                        <h2>Project Setup</h2>
+                                        <div class="code-block">
+                                            <pre>
+# Create a new React project
+npx create-react-app my-app
+cd my-app
+
+# Install dependencies
+npm install @material-ui/core axios express
+npm install @emotion/react @emotion/styled
+
+# Start development server
+npm start</pre>
+                                        </div>
+                                    </div>
+
+                                    <div class="implementation editable-highlight">
+                                        <h2>Implementation Steps</h2>
+                                        <div class="step-list">
+                                            <div class="step">
+                                                <span class="step-number">1</span>
+                                                <div class="step-content">
+                                                    <h3>Project Structure</h3>
+                                                    <p>Set up your project folders and initial files</p>
+                                                    <div class="code-block">
+                                                        <pre>
+my-app/
+├── src/
+│   ├── components/
+│   │   ├── components/
+│   │   └── utils/
+│   └── server/</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="step">
+                                                <span class="step-number">2</span>
+                                                <div class="step-content">
+                                                    <h3>Component Creation</h3>
+                                                    <p>Build reusable React components</p>
+                                                    <div class="code-block">
+                                                        <pre>
+import React from 'react';
+
+const Button = ({ children, onClick }) => (
+  <button className="custom-button" onClick={onClick}>
+    {children}
+  </button>
+);</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="card" data-article="mindfulness">
+                        <div class="card-img-wrapper">
+                            <img src="../assests/images/mindful.jpg" alt="Mindfulness">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category">
+                                <i class="fas fa-heart"></i> Wellness
+                            </div>
+                            <h3>Mindfulness Article</h3>
+                            <p>A soothing template designed for wellness and mindfulness content with ample whitespace.</p>
+                            <div class="card-footer">
+                                <div class="card-meta">
+                                    <span><i class="far fa-eye"></i> 3.2k</span>
+                                    <span><i class="far fa-heart"></i> 273</span>
+                                </div>
+                                <a href="#" class="card-link" data-target="mindfulnessPreview">Preview <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Modal for Mindfulness Template -->
+                    <div id="mindfulnessPreview" class="preview-modal">
+                        <div class="preview-container">
+                            <div class="preview-header">
+                                <h2><i class="fas fa-spa"></i> Mindfulness Template</h2>
+                                <div class="preview-actions">
+                                    <button class="preview-btn secondary"><i class="far fa-eye"></i> Live Demo</button>
+                                    <button class="preview-btn"><i class="fas fa-pencil-alt"></i> Use This Template</button>
+                                    <button class="close-preview"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="template-content mindfulness-template">
+                                <div class="meditation-hero editable-highlight">
+                                    <img src="../assests/images/mindful.jpg" alt="Peaceful meditation setting">
+                                </div>
+                                <h1 class="article-title editable-highlight">Finding Inner Peace Through Daily Meditation</h1>
+                                <p class="article-subtitle editable-highlight">A beginner's guide to establishing a mindful meditation practice</p>
+
+                                <div class="practice-meta">
+                                    <div class="meta-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>10 min read</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-signal"></i>
+                                        <span>Beginner Friendly</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Wellness</span>
+                                    </div>
+                                </div>
+
+                                <div class="article-content">
+                                    <div class="introduction editable-highlight">
+                                        <p>In our fast-paced world, finding moments of stillness becomes increasingly valuable. This guide will help you establish a sustainable meditation practice that fits into your daily routine.</p>
+                                    </div>
+
+                                    <div class="practice-steps editable-highlight">
+                                        <h2>Getting Started</h2>
+                                        <div class="step-grid">
+                                            <div class="meditation-step">
+                                                <i class="fas fa-clock"></i>
+                                                <h3>Choose Your Time</h3>
+                                                <p>Start with 5-10 minutes in the morning when your mind is fresh</p>
+                                            </div>
+                                            <div class="meditation-step">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <h3>Create Your Space</h3>
+                                                <p>Find a quiet corner where you won't be disturbed</p>
+                                            </div>
+                                            <div class="meditation-step">
+                                                <i class="fas fa-heart"></i>
+                                                <h3>Set Your Intention</h3>
+                                                <p>Begin each session with a clear purpose</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="technique-section editable-highlight">
+                                        <h2>Basic Meditation Technique</h2>
+                                        <ol class="technique-steps">
+                                            <li>Find a comfortable seated position</li>
+                                            <li>Close your eyes gently</li>
+                                            <li>Focus on your natural breath</li>
+                                            <li>Notice thoughts without judgment</li>
+                                            <li>Return focus to breath when distracted</li>
+                                        </ol>
+                                    </div>
+
+                                    <div class="benefits-section editable-highlight">
+                                        <h2>Benefits of Regular Practice</h2>
+                                        <div class="benefits-grid">
+                                            <div class="benefit-card">
+                                                <i class="fas fa-brain"></i>
+                                                <h3>Mental Clarity</h3>
+                                                <p>Improved focus and decision-making</p>
+                                            </div>
+                                            <div class="benefit-card">
+                                                <i class="fas fa-heart"></i>
+                                                <h3>Emotional Balance</h3>
+                                                <p>Better stress management</p>
+                                            </div>
+                                            <div class="benefit-card">
+                                                <i class="fas fa-bed"></i>
+                                                <h3>Better Sleep</h3>
+                                                <p>Improved sleep quality</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="card" data-article="photography">
+                        <div class="card-img-wrapper">
+                            <img src="../assests/images/photography.jpg" alt="Photography">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category">
+                                <i class="fas fa-camera"></i> Photography
+                            </div>
+                            <h3>Photo Essay Template</h3>
+                            <p>Image-focused layout that puts your photography front and center with elegant captions.
+                            </p>
+                            <div class="card-footer">
+                                <div class="card-meta">
+                                    <span><i class="far fa-eye"></i> 4.1k</span>
+                                    <span><i class="far fa-heart"></i> 352</span>
+                                </div>
+                                <a href="#" class="card-link" data-target="photographyPreview">Preview <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Modal for Photography Template -->
+                    <div id="photographyPreview" class="preview-modal">
+                        <div class="preview-container">
+                            <div class="preview-header">
+                                <h2><i class="fas fa-camera"></i> Photography Template</h2>
+                                <div class="preview-actions">
+                                    <button class="preview-btn secondary"><i class="far fa-eye"></i> Live Demo</button>
+                                    <button class="preview-btn"><i class="fas fa-pencil-alt"></i> Use This
+                                        Template</button>
+                                    <button class="close-preview"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="template-content photography-template">
+                                <div class="photo-header editable-highlight">
+                                    <img src="../assests/images/photography.jpg" alt="Mountain landscape photography">
+                                </div>
+                                <h1 class="article-title editable-highlight">The Changing Colors of Autumn</h1>
+                                <p class="article-subtitle editable-highlight">A visual journey through seasonal
+                                    transformation</p>
+                                <div class="article-content">
+                                    <p class="editable-highlight">As summer's vibrant greens yield to autumn's warm
+                                        palette, landscapes transform into a breathtaking canvas of reds, oranges, and
+                                        golds. These photographs capture the ephemeral beauty of fall foliage during the
+                                        peak color change in the northeastern woodlands.</p>
+                                    <p>Each year, this transformation happens gradually yet dramatically, creating a
+                                        window of just a few weeks when the forest seems to glow with its own inner
+                                        light. The images in this collection were captured during early morning and late
+                                        afternoon, when the low angle of the sun emphasizes the richness of autumn
+                                        colors.</p>
+                                    <div class="photo-gallery">
+                                        <div class="gallery-item editable-highlight">
+                                            <img src="/api/placeholder/600/400" alt="Forest path with autumn leaves">
+                                            <div class="photo-caption">Winding path through maple and oak trees, early
+                                                October. The forest floor mirrors the canopy with a carpet of fallen
+                                                leaves.</div>
+                                        </div>
+                                        <div class="gallery-item editable-highlight">
+                                            <img src="/api/placeholder/600/400"
+                                                alt="Reflection of autumn trees in still water">
+                                            <div class="photo-caption">Mirror-like reflections on Cooper Lake create a
+                                                symmetrical study of color and form in peak foliage season.</div>
+                                        </div>
+                                        <div class="gallery-item editable-highlight">
+                                            <img src="/api/placeholder/600/400" alt="Close-up of red maple leaves">
+                                            <div class="photo-caption">Detailed view of red maple leaves showcasing the
+                                                intricate vein patterns that become more visible as chlorophyll fades.
+                                            </div>
+                                        </div>
+                                        <div class="gallery-item editable-highlight">
+                                            <img src="/api/placeholder/600/400"
+                                                alt="Fog rising through colorful autumn valley">
+                                            <div class="photo-caption">Morning mist rises through the valley, creating
+                                                ethereal layers among trees in various stages of seasonal change.</div>
+                                        </div>
+                                    </div>
+                                    <p>Photography provides a unique opportunity to preserve moments of natural
+                                        transition that might otherwise be lost to memory. The autumn season reminds us
+                                        of nature's cycles and the beauty that can be found in change and impermanence.
+                                    </p>
+                                    <p class="editable-highlight">These images were captured with a full-frame camera
+                                        and 24-70mm lens, mostly at f/8 to maintain depth of field while keeping the
+                                        entire scene sharp. Minimal post-processing emphasizes the natural colors and
+                                        contrasts that already exist in these autumn landscapes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="card" data-article="culinary">
+                        <div class="card-img-wrapper">
+                            <img src="../assests/images/cooking.jpg" alt="Culinary">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category">
+                                <i class="fas fa-utensils"></i> Culinary
+                            </div>
+                            <h3>Recipe Collection Template</h3>
+                            <p>Showcase your favorite recipes with this elegant layout featuring ingredients lists,
+                                step-by-step instructions and cook times.</p>
+                            <div class="card-footer">
+                                <div class="card-meta">
+                                    <span><i class="far fa-eye"></i> 3.7k</span>
+                                    <span><i class="far fa-heart"></i> 295</span>
+                                </div>
+                                <a href="#" class="card-link" data-target="culinaryPreview">Preview <i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Modal for Culinary Template -->
+                    <div id="culinaryPreview" class="preview-modal">
+                        <div class="preview-container">
+                            <div class="preview-header">
+                                <h2><i class="fas fa-utensils"></i> Culinary Template</h2>
+                                <div class="preview-actions">
+                                    <button class="preview-btn secondary"><i class="far fa-eye"></i> Live Demo</button>
+                                    <button class="preview-btn"><i class="fas fa-pencil-alt"></i> Use This
+                                        Template</button>
+                                    <button class="close-preview"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="template-content culinary-template">
+                                <div class="recipe-hero editable-highlight">
+                                    <img src="../assests/images/cooking.jpg" alt="Plated pasta dish">
+                                </div>
+                                <h1 class="recipe-title editable-highlight">Roasted Vegetable Pasta with Fresh Herbs
+                                </h1>
+                                <p class="recipe-subtitle editable-highlight">A colorful Mediterranean-inspired dish
+                                    perfect for weeknight dinners</p>
+                                <div class="recipe-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-icon"><i class="far fa-clock"></i></div>
+                                        <span class="meta-label">Prep Time</span>
+                                        <span class="meta-value">20 min</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-icon"><i class="fas fa-fire"></i></div>
+                                        <span class="meta-label">Cook Time</span>
+                                        <span class="meta-value">35 min</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-icon"><i class="fas fa-users"></i></div>
+                                        <span class="meta-label">Serves</span>
+                                        <span class="meta-value">4</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-icon"><i class="fas fa-leaf"></i></div>
+                                        <span class="meta-label">Difficulty</span>
+                                        <span class="meta-value">Easy</span>
+                                    </div>
+                                </div>
+                                <div class="recipe-content">
+                                    <div class="ingredients-section">
+                                        <h2 class="section-title">Ingredients</h2>
+                                        <ul class="ingredients-list editable-highlight">
+                                            <li>
+                                                <span>Rigatoni pasta</span>
+                                                <span class="ingredient-amount">12 oz</span>
+                                            </li>
+                                            <li>
+                                                <span>Cherry tomatoes</span>
+                                                <span class="ingredient-amount">2 cups</span>
+                                            </li>
+                                            <li>
+                                                <span>Red bell pepper, diced</span>
+                                                <span class="ingredient-amount">1 large</span>
+                                            </li>
+                                            <li>
+                                                <span>Zucchini, sliced</span>
+                                                <span class="ingredient-amount">1 medium</span>
+                                            </li>
+                                            <li>
+                                                <span>Red onion, sliced</span>
+                                                <span class="ingredient-amount">1 medium</span>
+                                            </li>
+                                            <li>
+                                                <span>Garlic cloves, minced</span>
+                                                <span class="ingredient-amount">4</span>
+                                            </li>
+                                            <li>
+                                                <span>Olive oil</span>
+                                                <span class="ingredient-amount">¼ cup</span>
+                                            </li>
+                                            <li>
+                                                <span>Fresh basil, chopped</span>
+                                                <span class="ingredient-amount">½ cup</span>
+                                            </li>
+                                            <li>
+                                                <span>Fresh parsley, chopped</span>
+                                                <span class="ingredient-amount">¼ cup</span>
+                                            </li>
+                                            <li>
+                                                <span>Parmesan cheese, grated</span>
+                                                <span class="ingredient-amount">½ cup</span>
+                                            </li>
+                                            <li>
+                                                <span>Salt and pepper</span>
+                                                <span class="ingredient-amount">to taste</span>
+                                            </li>
+                                            <li>
+                                                <span>Red pepper flakes</span>
+                                                <span class="ingredient-amount">½ tsp (optional)</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="instructions">
+                                        <h2 class="section-title">Instructions</h2>
+                                        <ol class="editable-highlight">
+                                            <li>Preheat your oven to 425°F (220°C). Line a large baking sheet with
+                                                parchment paper.</li>
+                                            <li>In a large bowl, toss the cherry tomatoes, bell pepper, zucchini, red
+                                                onion, and garlic with 3 tablespoons of olive oil, salt, and pepper
+                                                until well coated.</li>
+                                            <li>Spread the vegetables in a single layer on the prepared baking sheet.
+                                                Roast for 25-30 minutes, stirring halfway through, until vegetables are
+                                                tender and slightly caramelized.</li>
+                                            <li>Meanwhile, bring a large pot of salted water to a boil. Cook the pasta
+                                                according to package instructions until al dente. Reserve ½ cup of pasta
+                                                water before draining.</li>
+                                            <li>In a large skillet or Dutch oven, combine the roasted vegetables and
+                                                drained pasta. Add the remaining tablespoon of olive oil and enough
+                                                reserved pasta water to create a light sauce.</li>
+                                            <li>Stir in most of the fresh herbs, saving some for garnish. Add red pepper
+                                                flakes if using. Toss everything together over medium heat for 1-2
+                                                minutes until well combined and heated through.</li>
+                                            <li>Serve immediately, topped with grated Parmesan cheese and the remaining
+                                                fresh herbs.</li>
+                                        </ol>
+                                        <h2 class="section-title">Chef's Notes</h2>
+                                        <p class="editable-highlight">For a protein boost, add grilled chicken or shrimp
+                                            to the finished dish. You can also substitute any seasonal vegetables you
+                                            have on hand—eggplant, mushrooms, and asparagus all work beautifully in this
+                                            versatile recipe.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="card" data-article="travel">
+                        <div class="card-img-wrapper">
+                            <img src="../assests/images/travel.jpg" alt="Travel">
+                            <div class="card-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category">
+                                <i class="fas fa-plane-departure"></i> Travel
+                            </div>
+                            <h3>Hidden Gems: Off-Grid Destinations</h3>
+                            <p>Discover breathtaking locations that remain untouched by mass tourism and offer authentic
+                                cultural experiences.</p>
+                            <div class="card-footer">
+                                <div class="card-meta">
+                                    <span><i class="far fa-clock"></i> 9 min read</span>
+                                    <span><i class="far fa-comment"></i> 29</span>
+                                </div>
+                                <a href="#" class="card-link" data-target="travelPreview">Preview <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Modal for Travel Template -->
+                    <div id="travelPreview" class="preview-modal">
+                        <div class="preview-container">
+                            <div class="preview-header">
+                                <h2><i class="fas fa-plane-departure"></i> Travel Template</h2>
+                                <div class="preview-actions">
+                                    <button class="preview-btn secondary"><i class="far fa-eye"></i> Live Demo</button>
+                                    <button class="preview-btn"><i class="fas fa-pencil-alt"></i> Use This Template</button>
+                                    <button class="close-preview"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                            <div class="template-content travel-template">
+                                <div class="destination-hero editable-highlight">
+                                    <img src="../assests/images/travel.jpg" alt="Mountain lake landscape">
+                                </div>
+                                <h1 class="article-title editable-highlight">Hidden Gems of the Swiss Alps</h1>
+                                <p class="article-subtitle editable-highlight">A guide to discovering untouched mountain villages and secret hiking trails</p>
+                                <div class="destination-meta">
+                                    <div class="meta-item">
+                                        <div class="meta-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                        <span class="meta-label">Location</span>
+                                        <span class="meta-value">Bernese Oberland, Switzerland</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-icon"><i class="fas fa-calendar-alt"></i></div>
+                                        <span class="meta-label">Best Time to Visit</span>
+                                        <span class="meta-value">June to September</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <div class="meta-icon"><i class="fas fa-clock"></i></div>
+                                        <span class="meta-label">Duration</span>
+                                        <span class="meta-value">5-7 days recommended</span>
+                                    </div>
+                                </div>
+                                <div class="article-content">
+                                    <div class="destination-overview editable-highlight">
+                                        <h2>Overview</h2>
+                                        <p>Nestled in the heart of the Swiss Alps, the Bernese Oberland region offers some of the most breathtaking mountain scenery in Europe. While popular destinations like Interlaken and Grindelwald attract most tourists, this guide reveals the hidden treasures that lie just off the beaten path.</p>
+                                    </div>
+                                    <div class="itinerary-section">
+                                        <h2>Suggested Itinerary</h2>
+                                        <div class="day-plan editable-highlight">
+                                            <h3>Day 1: Arrival in Grindelwald</h3>
+                                            <ul>
+                                                <li>Check into your mountain chalet</li>
+                                                <li>Evening walk through the historic village center</li>
+                                                <li>Traditional Swiss dinner at Restaurant Alte Post</li>
+                                            </ul>
+                                        </div>
+                                        <div class="day-plan editable-highlight">
+                                            <h3>Day 2: Hiking the Eiger Trail</h3>
+                                            <ul>
+                                                <li>Early morning start for the Eiger Trail</li>
+                                                <li>Picnic lunch with views of the North Face</li>
+                                                <li>Afternoon tea at Mountain Lodge</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="practical-info editable-highlight">
+                                        <h2>Practical Information</h2>
+                                        <div class="info-grid">
+                                            <div class="info-card">
+                                                <i class="fas fa-bed"></i>
+                                                <h3>Where to Stay</h3>
+                                                <p>Mountain lodges and boutique chalets</p>
+                                            </div>
+                                            <div class="info-card">
+                                                <i class="fas fa-utensils"></i>
+                                                <h3>Local Cuisine</h3>
+                                                <p>Traditional Swiss alpine dishes</p>
+                                            </div>
+                                            <div class="info-card">
+                                                <i class="fas fa-hiking"></i>
+                                                <h3>Activities</h3>
+                                                <p>Hiking, climbing, photography</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action Section -->
+            <section class="cta-section">
+                <div class="cta-content">
+                    <h2 class="cta-title">Join Our Newsletter</h2>
+                    <p class="cta-text">Get weekly updates with the best content directly in your inbox. No spam, ever.
+                    </p>
+                    <a href="#" class="cta-btn">Subscribe Now</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-top">
+                <div class="footer-column">
+                    <h3>CardBlog</h3>
+                    <p>A modern platform for sharing stories, ideas, and inspiration. Curating the best content for
+                        curious minds.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Featured</a></li>
+                        <li><a href="#">Categories</a></li>
+                        <li><a href="#">Authors</a></li>
+                        <li><a href="#">Submit Article</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Productivity</a></li>
+                        <li><a href="#">Wellness</a></li>
+                        <li><a href="#">Photography</a></li>
+                        <li><a href="#">Travel</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 CardBlog. All rights reserved.
+            </div>
+        </footer>
+
+        <!-- Dark Mode Toggle -->
+        <div class="theme-switch">
+            <i class="fas fa-moon"></i>
+        </div>
+    </div>
+
+    <script>
+        // Theme switch functionality
+        const themeSwitch = document.querySelector('.theme-switch');
+        const themeIcon = themeSwitch.querySelector('i');
+
+        themeSwitch.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // Add animation to cards as they come into view
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Template preview functionality
+            const cards = document.querySelectorAll('.card');
+            const previewModals = document.querySelectorAll('.preview-modal');
+            const closeButtons = document.querySelectorAll('.close-preview');
+
+            // Map data-article attributes to their respective preview IDs
+            const templateMap = {
+                'productivity': 'productivityPreview',
+                'development': 'developmentPreview',
+                'mindfulness': 'mindfulnessPreview',
+                'photography': 'photographyPreview',
+                'culinary': 'culinaryPreview',
+                'travel': 'travelPreview'
+            };
+
+            // Add click event to each card
+            cards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Prevent navigation if the click was on the card link
+                    if (e.target.classList.contains('card-link') || e.target.parentElement.classList.contains('card-link')) {
+                        e.preventDefault();
+                    }
+
+                    const articleType = card.getAttribute('data-article');
+                    const previewId = templateMap[articleType];
+
+                    if (previewId) {
+                        document.getElementById(previewId).style.display = 'block';
+                        document.body.style.overflow = 'hidden'; // Prevent scrolling of background
+                    }
+                });
+            });
+
+            // "Use This Template" button functionality
+            const useTemplateButtons = document.querySelectorAll('.preview-btn:not(.secondary)');
+            useTemplateButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // This would redirect to the template editor with the selected template
+                    alert('This would take you to the editor with this template loaded!');
+                    // In a real implementation, you might use:
+                    // window.location.href = `/editor?template=${selectedTemplate}`;
+                });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.card');
+            const previewModals = document.querySelectorAll('.preview-modal');
+            const closeButtons = document.querySelectorAll('.close-preview');
+
+            // Add click event to each card's "Preview" link
+            cards.forEach(card => {
+                const previewLink = card.querySelector('.card-link');
+                if (previewLink) {
+                    previewLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetModalId = previewLink.getAttribute('data-target');
+                        const targetModal = document.getElementById(targetModalId);
+                        if (targetModal) {
+                            targetModal.classList.add('active');
+                            document.body.style.overflow = 'hidden'; // Prevent scrolling of background
+                        }
+                    });
+                }
+            });
+
+            // Close preview functionality
+            closeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    previewModals.forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                    document.body.style.overflow = 'auto'; // Restore scrolling
+                });
+            });
+
+            // Close modal if clicking outside the content area
+            previewModals.forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+        });
+
+        // When "New Post" is clicked
+        function showTemplateModal() {
+            const modal = document.getElementById('templateModal');
+            const editor = document.getElementById('editor');
+            
+            // Hide the editor initially
+            if (editor) {
+                editor.style.display = 'none';
+            }
+            
+            // Show the modal
+            modal.style.display = 'block';
+        }
+
+    </script>
+</body>
+
+</html>

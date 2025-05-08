@@ -1,0 +1,23 @@
+<!-- blog/edit.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Blog Post - CloudBlog</title>
+  <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+  <div class="blog-editor-container">
+    <h2>Edit Post</h2>
+    <form id="editPostForm">
+      <input type="text" id="editTitle" required />
+      <textarea id="editContent" rows="12" required></textarea>
+      <input type="text" id="editTags" placeholder="Tags (comma-separated)" />
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <script src="blog.js"></script>
+</body>
+</html>

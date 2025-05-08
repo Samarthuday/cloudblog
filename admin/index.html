@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudBlog - Modern Blogging Platform</title>
+  <meta name="description"
+    content="CloudBlog is a powerful cloud-based blogging platform designed for writers, creators, and businesses.">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon">
+  <!-- TinyMCE Script -->
+  <script src="https://cdn.tiny.cloud/1/vwsa6n779s6c4j744jclzx2l2halp1zr6goo618c8wzb7cf7/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="../script.js" defer></script>
+</head>
+
+<body>
+  <header id="site-header">
+    <div class="header-wrapper">
+      <a href="#" class="logo">
+        <img src="../assests/images/feather-wing-svgrepo-com.svg" alt="CloudBlog Logo">
+        <span>CloudBlog</span>
+      </a>
+      
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="#features-section">Features</a></li>
+          <li><a href="../blog.html">Blogs</a></li>
+          <li><a href="../pages/blog-templates.html">Templates</a></li>
+          <li><a href="#pricing-section">Pricing</a></li>
+          <li><a href="../pages/support.html">Support</a></li>
+        </ul>
+      </nav>
+
+      <div class="auth-buttons">
+        <a href="../auth/login.html" class="login-btn">Login</a>
+        <a href="../auth/register.html" class="signup-btn">Sign Up</a>
+      </div>
+
+      <button class="theme-toggle" aria-label="Toggle dark mode">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="theme-icon">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 1.5a7 7 0 1 0 0-14 7 7 0 0 0 0 14zm12-7a.8.8 0 0 1-.8.8h-2.4a.8.8 0 0 1 0-1.6h2.4a.8.8 0 0 1 .8.8zM4 12a.8.8 0 0 1-.8.8H.8a.8.8 0 0 1 0-1.6h2.5a.8.8 0 0 1 .8.8zm16.5-8.5a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM6.3 17.7a.8.8 0 0 1 0 1.1l-1.8 1.8a.8.8 0 0 1-1.1-1.1l1.8-1.8a.8.8 0 0 1 1.1 0zM12 0a.8.8 0 0 1 .8.8v2.5a.8.8 0 0 1-1.6 0V.8A.8.8 0 0 1 12 0zm0 20a.8.8 0 0 1 .8.8v2.4a.8.8 0 0 1-1.6 0v-2.4a.8.8 0 0 1 .8-.8zM3.5 3.5a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 1 1-1.1 1.1L3.5 4.6a.8.8 0 0 1 0-1.1zm14.2 14.2a.8.8 0 0 1 1.1 0l1.8 1.8a.8.8 0 0 1-1.1 1.1l-1.8-1.8a.8.8 0 0 1 0-1.1z"/>
+        </svg>
+      </button>
+
+      <button class="mobile-menu-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>Express Your Ideas With CloudBlog</h1>
+            <p class="tagline">The modern blogging platform designed for today's content creators with powerful editing
+              tools, analytics, and customization options.</p>
+            <div class="hero-cta">
+              <a href="../auth/register.html" class="btn btn-primary btn-large">Start Your Free Trial</a>
+              <a href="../auth/login.html" class="btn btn-outline">Login</a>
+            </div>
+          </div>
+
+          <div class="hero-video">
+            <div class="video-container">
+              <!-- Replace the src with your actual video URL -->
+              <video autoplay loop muted playsinline>
+                <source src="../assests/videos/blogplatform.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+
+              <!-- Fallback image if video doesn't load -->
+              <img src="../assests/images/feather-wing-svgrepo-com.svg" alt="CloudBlog Platform Interface" class="video-fallback">
+
+              <!--<div class="video-overlay">
+                      <h2>Create content with CloudBlog</h2>
+                    </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Overview Section -->
+    <section id="features-section" class="features-overview">
+      <div class="container">
+        <h2>Everything You Need to Create Amazing Content</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="icon-container">
+              <div class="icon">
+                <img src="../assests/images/icons/rich-editor.png" alt="Rich Editor Icon">
+              </div>
+            </div>
+            <h3>Powerful Editor</h3>
+            <p>Create stunning posts with our intuitive rich-text editor</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-container">
+              <div class="icon">
+                <img src="../assests/images/icons/cloudd.png" alt="Cloud Storage Icon">
+              </div>
+            </div>
+            <h3>Cloud Storage</h3>
+            <p>Your content is securely stored and available anywhere</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-container">
+              <div class="icon">
+                <img src="../assests/images/icons/ana.png" alt="Analytics Icon">
+              </div>
+            </div>
+            <h3>Built-in Analytics</h3>
+            <p>Gain insights into your audience and content performance</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon-container">
+              <div class="icon">
+                <img src="../assests/images/icons/custo.jpg" alt="Customization Icon">
+              </div>
+            </div>
+            <h3>Full Customization</h3>
+            <p>Make your blog truly yours with extensive customization options</p>
+          </div>
+        </div>
+        <div class="features-cta">
+          <a href="pages/features.html" class="btn btn-outline">See All Features</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="container">
+        <h2>Loved by Content Creators Worldwide</h2>
+        <div class="testimonials-slider">
+          <div class="testimonial">
+            <div class="quote">"CloudBlog transformed my writing workflow. It's intuitive, powerful, and helps me focus
+              on creating great content."</div>
+            <div class="author">
+              <img src="../assests/images/testimonials/user-1.svg" alt="Sarah Johnson">
+              <div class="author-info">
+                <h4>Sarah Johnson</h4>
+                <p>Travel Blogger</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="quote">"The analytics features have helped me understand my audience better than ever before. My
+              engagement has doubled since switching to CloudBlog."</div>
+            <div class="author">
+              <img src="../assests/images/testimonials/user-2.svg" alt="Mark Chen">
+              <div class="author-info">
+                <h4>Mark Chen</h4>
+                <p>Tech Reviewer</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="quote">"As a small business owner, CloudBlog gives me a professional platform without the
+              technical headaches. Couldn't be happier!"</div>
+            <div class="author">
+              <img src="../assests/images/testimonials/user-3.svg" alt="Priya Patel">
+              <div class="author-info">
+                <h4>Priya Patel</h4>
+                <p>Small Business Owner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slider-controls">
+          <button class="prev" aria-label="Previous testimonial">←</button>
+          <div class="pagination"></div>
+          <button class="next" aria-label="Next testimonial">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Overview -->
+    <section id="pricing-section" class="pricing-overview">
+      <div class="container">
+        <h2>Simple, Transparent Pricing</h2>
+        <p class="section-intro">Choose the plan that fits your needs</p>
+        <div class="pricing-cards">
+          <div class="pricing-card">
+            <div class="card-header">
+              <h3>Free</h3>
+              <div class="price">$0<span>/month</span></div>
+            </div>
+            <div class="card-body">
+              <ul class="features-list">
+                <li>Basic blogging tools</li>
+                <li>3 blog posts</li>
+                <li>Community support</li>
+                <li>CloudBlog branding</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="../auth/register.html" class="btn btn-outline-primary">Start Free</a>
+            </div>
+          </div>
+          <div class="pricing-card popular">
+            <div class="popular-tag">Most Popular</div>
+            <div class="card-header">
+              <h3>Pro</h3>
+              <div class="price">$12<span>/month</span></div>
+            </div>
+            <div class="card-body">
+              <ul class="features-list">
+                <li>Advanced editor features</li>
+                <li>Unlimited blog posts</li>
+                <li>Priority support</li>
+                <li>Custom domain</li>
+                <li>Analytics dashboard</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="../pages/pricing.html" class="btn btn-primary">Choose Pro</a>
+            </div>
+          </div>
+          <div class="pricing-card">
+            <div class="card-header">
+              <h3>Business</h3>
+              <div class="price">$29<span>/month</span></div>
+            </div>
+            <div class="card-body">
+              <ul class="features-list">
+                <li>Everything in Pro</li>
+                <li>Team collaboration</li>
+                <li>Advanced analytics</li>
+                <li>API access</li>
+                <li>24/7 dedicated support</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="auth/register.html" class="btn btn-outline-primary">Choose Business</a>
+            </div>
+          </div>
+        </div>
+        <div class="pricing-cta">
+          <a href="../pages/pricing.html" class="text-link">View complete pricing details →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Start Your Blogging Journey?</h2>
+        <p>Join thousands of content creators who trust CloudBlog for their publishing needs.</p>
+        <a href="../auth/register.html" class="btn btn-primary btn-large">Create Your Blog Now</a>
+        <div class="secondary-cta">
+          <span>Already have an account?</span>
+          <a href="../auth/login.html">Log in</a>
+        </div>
+      </div>
+    </section>
+    <!-- Add the "Back to Top" rocket button here -->
+    <!-- Add the "Back to Top" rocket button here -->
+    <a href="#" class="back-to-top">
+      🚀
+    </a>
+
+
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <!--<script src="../components/header.js"></script>
+  <script src="../components/footer.js"></script>-->
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Storage Test</title>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+  <button onclick="uploadTest()">Test Upload</button>
+  <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyB1FMx76cBLz8LZq8-ai765u2mV-caQQZg",
+  authDomain: "cloudblog-12cb8.firebaseapp.com",
+  projectId: "cloudblog-12cb8",
+  storageBucket: "cloudblog-12cb8.firebasestorage.app",
+  messagingSenderId: "632917097509",
+  appId: "1:632917097509:web:35791d6861771bd3fc93cc",
+  measurementId: "G-4DFB318NC2"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
+
+    function uploadTest() {
+      const ref = storage.ref('test.txt');
+      ref.put(new Blob(['hello'])).then(() => {
+        alert('Upload success!');
+      }).catch(e => {
+        alert('Upload failed: ' + e.message);
+        console.error(e);
+      });
+    }
+  </script>
+</body>
+</html>

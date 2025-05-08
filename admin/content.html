@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management - Blog Admin</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="admin-header">
+        <nav class="admin-nav">
+            <div class="nav-brand">
+                <h1>Blog Admin</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="content.html" class="active">Content</a></li>
+                <li><a href="../blog.html">View Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="content-main">
+        <div class="content-header">
+            <h2>Content Management</h2>
+            <button id="newPostBtn" class="btn primary-btn">
+                <i class="fas fa-plus"></i> New Post
+            </button>
+        </div>
+
+        <div class="posts-container">
+            <div class="posts-filters">
+                <div class="search-box">
+                    <input type="text" id="searchPosts" placeholder="Search posts...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-options">
+                    <select id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                    <select id="sortBy">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="title">Title A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="postsList" class="posts-list">
+                <!-- Posts will be loaded here dynamically -->
+            </div>
+        </div>
+    </main>
+
+    <!-- New Post Modal -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Post</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="postForm">
+                    <div class="form-group">
+                        <label for="postTitle">Title</label>
+                        <input type="text" id="postTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postContent">Content</label>
+                        <textarea id="postContent" rows="10" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="postImage">Featured Image URL</label>
+                        <input type="url" id="postImage">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary-btn" id="saveDraft">Save as Draft</button>
+                        <button type="submit" class="btn primary-btn">Publish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { firebaseConfig } from '../config/firebase.js';
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Make Firebase services available globally
+        window.db = db;
+        window.auth = auth;
+    </script>
+    <script src="../js/admin/content.js"></script>
+</body>
+</html>
