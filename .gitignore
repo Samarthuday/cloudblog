@@ -67,3 +67,25 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test and temporary files
+test-upload.html
+fix-timestamps.html
+
+# Firebase local config
+.firebaserc
+firebase.json
+firestore.rules
+storage.rules
+database.rules.json
+firestore.indexes.json
