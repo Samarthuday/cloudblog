@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getFirestore, collection, doc, getDoc, getDocs, onSnapshot, query, where, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB1FMx76cBLz8LZq8-a1765u2mV-ca0QZg",
+  apiKey: "Replace with your API Key",
   authDomain: "cloudblog-12cb8.firebaseapp.com",
   projectId: "cloudblog-12cb8",
   storageBucket: "cloudblog-12cb8.appspot.com",
