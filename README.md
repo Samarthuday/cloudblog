@@ -1,6 +1,7 @@
-# CloudBlog - A Modern Blogging Platform
-
-![CloudBlog Logo](assests/images/feather-wing-svgrepo-com.svg)
+<p align="left">
+  <img src="assests/images/feather-wing-svgrepo-com.svg" alt="CloudBlog Logo" width="40" style="vertical-align:middle; margin-right:10px"/>
+  <span style="font-size:2em; vertical-align:middle;"><b>CloudBlog - A Modern Blogging Platform</b></span>
+</p>
 
 CloudBlog is a modern, responsive blogging platform built with HTML, CSS, and JavaScript, powered by Firebase. It provides a seamless experience for both readers and content creators.
 
